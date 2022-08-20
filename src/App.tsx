@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import { Col } from 'antd'
 import { Search } from './components/Search'
 import { PokemonList } from './components/PokemonList'
 import { getPokemons, PokemonType } from './api'
 import logo from './statics/logo.svg'
 import './App.css'
+import { setPokemmons as setPokemmonsActions } from './actions'
 
-function App() {
-  const [pkmns,setPkmns] = useState<PokemonType[]>([]);
+type AppType = {
+  pokemons:PokemonType[], setPokemons:any
+}
+
+function App({pokemons, setPokemons}: AppType ) {
+  // const [pokemons,setPokemons] = useState<PokemonType[]>([]);
   useEffect(()=>{
     async function fetchPokemon(){
-        const pokemons = await getPokemons();
-        setPkmns(pokemons as PokemonType[])
+        const pkmns = await getPokemons();
+        setPokemons(pkmns as PokemonType[])
     } 
     fetchPokemon();
   },[])
@@ -23,9 +29,17 @@ function App() {
       <Col span={8} offset={8}>
         <Search />
       </Col>
-      <PokemonList pokemons={pkmns} />
+      <PokemonList pokemons={pokemons} />
     </div>
   )
 }
 
-export default App
+const mapStateToProps = (state:any)=>({
+  pokemons: state.pokemons
+})
+
+const mapDispatchToProps = (dispath:any)=>({
+  setPokemons: (value:PokemonType[])=> dispath(setPokemmonsActions(value))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
