@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Col } from 'antd'
 import { Search } from './components/Search'
 import { PokemonList } from './components/PokemonList'
