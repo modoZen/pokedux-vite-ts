@@ -1,7 +1,7 @@
 import { SET_POKEMONS } from "../actions/types"
 import { PokemonType } from "../api"
 
-type TypeState = {
+export type TypeState = {
     pokemons: PokemonType[]
 }
 
