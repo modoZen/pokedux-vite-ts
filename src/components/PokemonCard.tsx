@@ -5,7 +5,6 @@ import Meta from "antd/lib/card/Meta";
 import { PokemonType } from "../api";
 
 const PokemonCard:FC<PokemonType> = ({name, url}) => {
-    console.info(name)
     return (
         <Card
             title={name}

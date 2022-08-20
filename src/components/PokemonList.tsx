@@ -13,7 +13,6 @@ interface Props {
 }
 
 const PokemonList:FC<Props> = ({ pokemons }) =>{
-    console.info(pokemons)
     return (
         <div className="PokemonList">
             {pokemons.map((pokemon,index)=>(

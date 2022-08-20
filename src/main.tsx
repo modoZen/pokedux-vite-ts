@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import { pokemonReducer  } from "./reducers/pokemon";
 import { Provider } from "react-redux";
-import { legacy_createStore as createStore } from 'redux'
-// import './index.css' 
+import { applyMiddleware, compose, legacy_createStore as createStore } from 'redux'
+import { featuring, logger } from './middleware';
 
-const store = createStore(pokemonReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const composedEnhancers = compose(
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(logger,featuring)
+)
+
+const store = createStore(pokemonReducer, composedEnhancers);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store} >
@@ -14,5 +19,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <App />
       </React.StrictMode>
   </Provider>
-
 )
