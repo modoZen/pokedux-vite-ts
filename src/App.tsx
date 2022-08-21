@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Col } from 'antd'
 import { Search } from './components/Search'
 import { PokemonList } from './components/PokemonList'
-import { getPokemons, PokemonType } from './api'
-import logo from './statics/logo.svg'
-import './App.css'
+import { Col } from 'antd'
+import { getPokemonDetails, getPokemons, PokemonType } from './api'
 import { setPokemons } from './actions'
 import { TypeState } from './reducers/pokemon'
+import logo from './statics/logo.svg'
+import './App.css'
 
 function App() {
   const pokemons = useSelector((state:TypeState)=>state.pokemons)
@@ -15,7 +15,8 @@ function App() {
   useEffect(()=>{
     async function fetchPokemon(){
         const pkmns = await getPokemons();
-        dispath(setPokemons(pkmns as PokemonType[]))
+        const pkmnsDetailed = await Promise.all((pkmns as PokemonType[]).map(pkmn=>getPokemonDetails(pkmn)))
+        dispath(setPokemons(pkmnsDetailed))
     } 
     fetchPokemon();
   },[])

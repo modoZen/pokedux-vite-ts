@@ -2,16 +2,21 @@ import { FC } from "react";
 import { StarOutlined } from "@ant-design/icons";
 import { Card } from "antd";
 import Meta from "antd/lib/card/Meta";
-import { PokemonType } from "../api";
 
-const PokemonCard:FC<PokemonType> = ({name, url}) => {
+type Props = {
+    name: string,
+    image: string,
+    types: any[]
+}
+
+const PokemonCard:FC<Props> = ({name, image, types}) => {
     return (
         <Card
             title={name}
-            cover={<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png" alt="Ditto" />}
+            cover={<img src={image} alt={name} />}
             extra={<StarOutlined />}
         >
-            <Meta description="fire, fairy" />
+            <Meta description={types.map(type=>type.type.name).join()} />
         </Card>
     )
 }

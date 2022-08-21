@@ -1,22 +1,22 @@
 import { FC } from "react";
-import { PokemonType } from "../api";
+import { PokemonDetailType } from "../api";
 import { PokemonCard } from "./PokemonCard";
 import './PokemonList.css'
 
-// export interface IPokemon{
-//     name: string
-//     url: string
-// }
-
 interface Props {
-    pokemons: PokemonType[]
+    pokemons: PokemonDetailType[]
 }
 
 const PokemonList:FC<Props> = ({ pokemons }) =>{
     return (
         <div className="PokemonList">
             {pokemons.map((pokemon,index)=>(
-                <PokemonCard url={pokemon.url} name={pokemon.name} key={pokemon.name} />
+                <PokemonCard 
+                    name={pokemon.name} 
+                    types={pokemon.types} 
+                    image={pokemon.sprites.other.home.front_default}  
+                    key={pokemon.name} 
+                />
             ))}
         </div>
     )

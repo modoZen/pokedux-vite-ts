@@ -1,8 +1,8 @@
 import { SET_POKEMONS } from "../actions/types"
-import { PokemonType } from "../api"
+import { PokemonDetailType } from "../api"
 
 export type TypeState = {
-    pokemons: PokemonType[]
+    pokemons: PokemonDetailType[]
 }
 
 const initialState: TypeState = {
