@@ -1,9 +1,14 @@
 import { getPokemonDetails, PokemonDetailType, PokemonType } from "../api";
-import { SET_POKEMONS } from "./types";
+import { SET_LOADING, SET_POKEMONS } from "./types";
 
 
 export const setPokemons = (payload: PokemonDetailType[])=>({
     type: SET_POKEMONS,
+    payload
+})
+
+export const setLoading = (payload:boolean)=>({
+    type: SET_LOADING,
     payload
 })
 
