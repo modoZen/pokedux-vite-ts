@@ -6,11 +6,13 @@ export type PokemonType = {
 }
 
 export type PokemonDetailType = {
+    id:number;
     name: string;
     image : string;
     types: any[];
     sprites: any;
     abilities: any;
+    favorite: boolean
 }
 
 type GetPokemonsResponse = {

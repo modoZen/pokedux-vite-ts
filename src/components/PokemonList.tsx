@@ -12,10 +12,12 @@ const PokemonList:FC<Props> = ({ pokemons }) =>{
         <div className="PokemonList">
             {pokemons.map((pokemon,index)=>(
                 <PokemonCard 
+                    id={pokemon.id}
                     name={pokemon.name} 
                     types={pokemon.types} 
                     image={pokemon.sprites.other.home.front_default}  
                     key={pokemon.name} 
+                    isFavorite={pokemon.favorite}
                 />
             ))}
         </div>
