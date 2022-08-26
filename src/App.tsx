@@ -10,8 +10,8 @@ import logo from './statics/logo.svg'
 import './App.css'
 
 function App() {
-  const pokemons = useSelector((state)=>state.get('pokemons')).toJS()
-  const loading = useSelector((state)=>state.get('loading'))
+  const pokemons = useSelector((state)=>state.get('data').get('pokemons')).toJS()
+  const loading = useSelector((state)=>state.get('ui').get('loading'))
   const dispath = useDispatch();
   useEffect(()=>{
     async function fetchPokemon(){
