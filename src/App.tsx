@@ -5,7 +5,6 @@ import { PokemonList } from './components/PokemonList'
 import { Col, Spin } from 'antd'
 import { getPokemons } from './api'
 import { getPokemonsWithDetails, setLoading, setPokemons } from './actions'
-import { TypeState } from './reducers/pokemon'
 import logo from './statics/logo.svg'
 import './App.css'
 
