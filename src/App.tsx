@@ -9,6 +9,8 @@ import './App.css'
 
 function App() {
   const pokemons = useAppSelector((state)=>state.data.pokemons)
+  const searched = useAppSelector(state=>state.data.searched)
+  const pokemonsSearched = pokemons.filter(pokemon=>pokemon.name.toLowerCase().includes(searched.toLowerCase()))
   const loading = useAppSelector((state)=>state.ui.loading)
   const dispatch = useAppDispatch();
   useEffect(()=>{
@@ -27,11 +29,10 @@ function App() {
         <Spin spinning size='large' />
       </Col>
       :
-      <PokemonList pokemons={pokemons} />
+      <PokemonList pokemons={pokemonsSearched} />
       }
     </div>
   )
 }
-
 
 export default App;

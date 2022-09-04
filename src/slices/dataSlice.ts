@@ -1,13 +1,15 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { getPokemonDetails, getPokemons, PokemonDetailType, PokemonType } from "../api";
 import { setLoading } from "./uiSlice";
 
 type InitialState = {
-    pokemons: PokemonDetailType[]
+    pokemons: PokemonDetailType[],
+    searched : string
 }
 
 const initialState: InitialState = {
-    pokemons: []
+    pokemons: [],
+    searched: ''
 }
 
 export const fetchPokemonsWithDetails = createAsyncThunk(
@@ -31,10 +33,10 @@ export const dataSlice = createSlice({
     name: 'data',
     initialState,
     reducers:{
-        setPokemons: (state,action)=>{
+        setPokemons: (state,action:PayloadAction<PokemonDetailType[]>)=>{
             state.pokemons = action.payload
         },
-        setFavorite: (state, action)=>{
+        setFavorite: (state, action:PayloadAction<{pokemonId:number}>)=>{
             const currentPokemonIndex = state.pokemons.findIndex(
                 (pkmn:PokemonDetailType) => {
                     return pkmn.id  === action.payload.pokemonId
@@ -44,10 +46,13 @@ export const dataSlice = createSlice({
                 const isFavorite = state.pokemons[currentPokemonIndex].favorite
                 state.pokemons[currentPokemonIndex].favorite = !isFavorite
             }
+        },
+        setSearched: (state, action:PayloadAction<string>)=>{
+            state.searched = action.payload
         }
     }
 })
 
 export const dataReducer = dataSlice.reducer;
 
-export const { setPokemons, setFavorite } = dataSlice.actions;
+export const { setPokemons, setFavorite, setSearched } = dataSlice.actions;
