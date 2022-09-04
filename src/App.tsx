@@ -1,25 +1,18 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Search } from './components/Search'
 import { PokemonList } from './components/PokemonList'
 import { Col, Spin } from 'antd'
-import { getPokemons } from './api'
-import { getPokemonsWithDetails, setLoading, setPokemons } from './actions'
+import { useAppDispatch, useAppSelector } from './slices'
+import { fetchPokemonsWithDetails } from './slices/dataSlice'
 import logo from './statics/logo.svg'
 import './App.css'
 
 function App() {
-  const pokemons = useSelector((state)=>state.get('data').get('pokemons')).toJS()
-  const loading = useSelector((state)=>state.get('ui').get('loading'))
-  const dispath = useDispatch();
+  const pokemons = useAppSelector((state)=>state.data.pokemons)
+  const loading = useAppSelector((state)=>state.ui.loading)
+  const dispatch = useAppDispatch();
   useEffect(()=>{
-    async function fetchPokemon(){
-        dispath(setLoading(true))
-        const pkmns = await getPokemons();
-        dispath(getPokemonsWithDetails(pkmns))
-        dispath(setLoading(false))
-    } 
-    fetchPokemon();
+    dispatch(fetchPokemonsWithDetails())
   },[])
   return (
     <div className="App">

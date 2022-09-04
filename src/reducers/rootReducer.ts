@@ -1,10 +1,19 @@
+import { applyMiddleware, compose, legacy_createStore as createStore } from 'redux'
+import thunk from 'redux-thunk';
 import { combineReducers } from "redux"
-import { dataSlice } from "../slices/dataSlice";
-// import { uiReducer } from './ui';
+import { pokemonsReducer } from './pokemon';
+import { uiReducer } from './ui';
+import { logger } from '../middleware';
+
+const composeAlt = window.__REDUX_DEVTOOLS_EXTENSION__COMPOSE__ || compose;
+
+const composedEnhancers = composeAlt(applyMiddleware(thunk, logger));
 
 const rootReducer = combineReducers({
-  data: dataSlice,
-  // ui: uiReducer,
+  data: pokemonsReducer,
+  ui: uiReducer,
 });
 
-export default rootReducer;
+const store = createStore(rootReducer, composedEnhancers);
+
+export default store;

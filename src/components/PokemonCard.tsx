@@ -14,13 +14,13 @@ type Props = {
 }
 
 const PokemonCard:FC<Props> = ({name, image, types, id, isFavorite}) => {
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     return (
         <Card
             title={name}
             cover={<img src={image} alt={name} />}
             extra={<StarButton isFavorite={isFavorite} onClick={()=>{
-                dispath(setFavorite({pokemonId: id}))
+                dispatch(setFavorite({pokemonId: id}))
             }} />}
         >
             <Meta description={types.map(type=>type.type.name).join()} />
